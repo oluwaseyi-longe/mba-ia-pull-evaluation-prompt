@@ -113,10 +113,7 @@ bug_to_user_story_v2:
 
   user_prompt: "{bug_report}"
 
-  techniques_applied:
-    - Role Prompting
-    - Few-shot Learning
-    - Skeleton of Thought
+  techniques_applied: ["Role Prompting", "Few-shot Learning", "Skeleton of Thought"]
 
   # Metadados
   version: "v2"
