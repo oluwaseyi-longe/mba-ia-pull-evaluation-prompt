@@ -293,15 +293,16 @@ def main():
     client = Client()
     project_name = os.getenv("LANGCHAIN_PROJECT", "prompt-optimization-challenge-resolved")
 
-    jsonl_path = "datasets/bug_to_user_story.jsonl"
+    project_root = Path(__file__).resolve().parent.parent
+    jsonl_path = project_root / "datasets" / "bug_to_user_story.jsonl"
 
-    if not Path(jsonl_path).exists():
+    if not jsonl_path.exists():
         print(f"❌ Arquivo de dataset não encontrado: {jsonl_path}")
         print("\nCertifique-se de que o arquivo existe antes de continuar.")
         return 1
 
     dataset_name = f"{project_name}-eval"
-    create_evaluation_dataset(client, dataset_name, jsonl_path)
+    create_evaluation_dataset(client, dataset_name, str(jsonl_path))
 
     print("\n" + "=" * 70)
     print("PROMPTS PARA AVALIAR")

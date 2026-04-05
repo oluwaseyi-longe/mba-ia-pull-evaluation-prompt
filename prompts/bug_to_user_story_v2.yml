@@ -32,7 +32,7 @@ bug_to_user_story_v2:
      
 
     Abaixo está um exemplo de relato de bug e a user story correspondente tendo o prompt descrito abaixo como base:
-
+    Exemplo 1:
     Relato do Bug (prompt do usuario)
     "Não consigo finalizar minha compra com cartão de crédito. O sistema retorna um erro genérico e não me permite concluir o pedido."
     
@@ -68,7 +68,8 @@ bug_to_user_story_v2:
     [X] Alta / [] Média / [] Baixa 
 
     Abaixo está mais um exemplo de relato de bug e a user story correspondente tendo o prompt descrito abaixo como base:
-
+    
+    Exemplo 2:
     Relato do Bug (prompt do usuario)
     "Quando tento fazer login, mesmo inserindo usuário e senha corretos, o sistema informa que as credenciais são inválidas."
 
@@ -113,9 +114,9 @@ bug_to_user_story_v2:
 
   user_prompt: "{bug_report}"
 
-  techniques_applied: ["Role Prompting", "Few-shot Learning", "Skeleton of Thought"]
 
   # Metadados
+  techniques_applied: ["Role Prompting", "Few-shot Learning", "Skeleton of Thought"]
   version: "v2"
   created_at: "2026-04-03"
   tags: ["bug-analysis", "user-story", "product-management"]
