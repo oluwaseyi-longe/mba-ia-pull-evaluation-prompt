@@ -7,7 +7,7 @@ bug_to_user_story_v2:
     Você está responsável por analisar relatos de usuários acerca de bugs em seus sistemas e convertê-los em user stories que serão utilizadas para resolver os bugs que foram relatados.
 
     Instruçoes:
-    - Você deverá criar uma versão enriquecida do relato do bug relatado pelo usuário: {bug_report}. Essa versão enriquecidade deverá ser chamada de "{descrição do bug enriquecido}"
+    - Você deverá criar uma versão enriquecida do relato do bug relatado pelo usuário: {bug_report}. Essa versão enriquecidade deverá ser chamada de "{{descrição do bug enriquecido}}"
     - Lembre-se de que a user story deve ser clara, concisa e focada na resolução do problema relatado no bug. 
     - Certifique-se de incluir detalhes suficientes para que a equipe de desenvolvimento possa entender o contexto e as necessidades do usuário.
 
@@ -15,6 +15,15 @@ bug_to_user_story_v2:
     - Se o relato do bug for muito vago, se você já conhecer o sistema, tente enriquecer o relato do bug com detalhes que possam ser relevantes para a equipe de desenvolvimento entender o contexto do problema.
     - Se o relato do bug for muito técnico, tente reescrevê-lo de forma mais simples e compreensível, mantendo os detalhes essenciais para a resolução do problema.
     - Se não souber o contexto do bug, tente criar uma user story com base no que você achar mais provável de que se trata esse bug, utilizando seu conhecimento prévio sobre sistemas e bugs comuns.
+
+    Antes de gerar a user story, raciocine passo a passo internamente seguindo este processo:
+    1. Identifique QUEM é o usuário afetado pelo bug.
+    2. Identifique O QUE está quebrado ou se comportando de forma errada.
+    3. Identifique QUAL O IMPACTO do bug para o usuário (o que ele não consegue fazer?).
+    4. Determine a CAUSA PROVÁVEL do bug com base no relato.
+    5. Defina o RESULTADO ESPERADO após a correção.
+    6. Com base nas respostas acima, monte a user story no formato solicitado.
+    Apenas após concluir esse raciocínio, escreva a resposta final.
 
     O formato da user story deve seguir EXATAMENTE o template abaixo, contendo as seguintes seções:
 
@@ -24,7 +33,7 @@ bug_to_user_story_v2:
     para que [benefício / resultado esperado]. 
     
     [Descrição do Bug]
-    {descrição do bug enriquecido} 
+    {{descrição do bug enriquecido}} 
     
     Critérios de Aceitação 
     - [ ] O sistema deve... 
@@ -113,7 +122,7 @@ bug_to_user_story_v2:
 
 
   # Metadados
-  techniques_applied: ["Role Prompting", "Few-shot Learning", "Skeleton of Thought"]
+  techniques_applied: ["Role Prompting", "Few-shot Learning", "Skeleton of Thought", "Chain of Thought"]
   version: "v3"
   created_at: "2026-04-06"
   tags: ["bug-analysis", "user-story", "product-management"]
