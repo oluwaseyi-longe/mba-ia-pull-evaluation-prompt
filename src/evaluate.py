@@ -24,10 +24,12 @@ from typing import List, Dict, Any
 from pathlib import Path
 from dotenv import load_dotenv
 from langsmith import Client
+from langsmith.evaluation import evaluate as ls_evaluate
 from langchain import hub
 from langchain_core.prompts import ChatPromptTemplate
 from utils import check_env_vars, format_score, print_section_header, get_llm as get_configured_llm
 from metrics import evaluate_f1_score, evaluate_clarity, evaluate_precision
+import time
 
 load_dotenv()
 
@@ -185,58 +187,87 @@ def evaluate_prompt(
 ) -> Dict[str, float]:
     print(f"\n🔍 Avaliando: {prompt_name}")
 
-    try:
-        prompt_template = pull_prompt_from_langsmith(prompt_name)
+    prompt_template = pull_prompt_from_langsmith(prompt_name)
+    llm = get_llm()
+    chain = prompt_template | llm
 
-        examples = list(client.list_examples(dataset_name=dataset_name))
-        print(f"   Dataset: {len(examples)} exemplos")
+    def target(inputs: Dict[str, Any]) -> Dict[str, Any]:
+        try:
+            response = chain.invoke(inputs)
+            time.sleep(10)
+            return {"output": response.content}
+        except Exception as e:
+            print(f"      ⚠️  Erro ao executar prompt: {e}")
+            return {"output": ""}
 
-        llm = get_llm()
+    def _get_question(inputs: Dict[str, Any]) -> str:
+        return inputs.get("question", inputs.get("bug_report", inputs.get("pr_title", "N/A")))
 
-        f1_scores = []
-        clarity_scores = []
-        precision_scores = []
+    def evaluator_f1(inputs: Dict[str, Any], outputs: Dict[str, Any], reference_outputs: Dict[str, Any]) -> Dict[str, Any]:
+        result = evaluate_f1_score(
+            _get_question(inputs),
+            outputs.get("output", ""),
+            reference_outputs.get("reference", "")
+        )
+        return {"key": "f1_score", "score": result["score"]}
 
-        print("   Avaliando exemplos...")
+    def evaluator_clarity(inputs: Dict[str, Any], outputs: Dict[str, Any], reference_outputs: Dict[str, Any]) -> Dict[str, Any]:
+        result = evaluate_clarity(
+            _get_question(inputs),
+            outputs.get("output", ""),
+            reference_outputs.get("reference", "")
+        )
+        return {"key": "clarity", "score": result["score"]}
 
-        for i, example in enumerate(examples[:10], 1):
-            result = evaluate_prompt_on_example(prompt_template, example, llm)
+    def evaluator_precision(inputs: Dict[str, Any], outputs: Dict[str, Any], reference_outputs: Dict[str, Any]) -> Dict[str, Any]:
+        result = evaluate_precision(
+            _get_question(inputs),
+            outputs.get("output", ""),
+            reference_outputs.get("reference", "")
+        )
+        return {"key": "precision", "score": result["score"]}
 
-            if result["answer"]:
-                f1 = evaluate_f1_score(result["question"], result["answer"], result["reference"])
-                clarity = evaluate_clarity(result["question"], result["answer"], result["reference"])
-                precision = evaluate_precision(result["question"], result["answer"], result["reference"])
+    print(f"   Executando experimento no LangSmith (dataset: {dataset_name})...")
 
-                f1_scores.append(f1["score"])
-                clarity_scores.append(clarity["score"])
-                precision_scores.append(precision["score"])
+    results = ls_evaluate(
+        target,
+        data=dataset_name,
+        evaluators=[evaluator_f1, evaluator_clarity, evaluator_precision],
+        experiment_prefix=prompt_name,
+        max_concurrency=1,
+    )
 
-                print(f"      [{i}/{min(10, len(examples))}] F1:{f1['score']:.2f} Clarity:{clarity['score']:.2f} Precision:{precision['score']:.2f}")
+    f1_scores = []
+    clarity_scores = []
+    precision_scores = []
 
-        avg_f1 = sum(f1_scores) / len(f1_scores) if f1_scores else 0.0
-        avg_clarity = sum(clarity_scores) / len(clarity_scores) if clarity_scores else 0.0
-        avg_precision = sum(precision_scores) / len(precision_scores) if precision_scores else 0.0
+    for result in results:
+        eval_results = result.get("evaluation_results", {}).get("results", [])
+        for er in eval_results:
+            key = er.key if hasattr(er, "key") else er.get("key", "")
+            score = er.score if hasattr(er, "score") else er.get("score", 0.0)
+            score = float(score) if score is not None else 0.0
+            if key == "f1_score":
+                f1_scores.append(score)
+            elif key == "clarity":
+                clarity_scores.append(score)
+            elif key == "precision":
+                precision_scores.append(score)
 
-        avg_helpfulness = (avg_clarity + avg_precision) / 2
-        avg_correctness = (avg_f1 + avg_precision) / 2
+    avg_f1 = sum(f1_scores) / len(f1_scores) if f1_scores else 0.0
+    avg_clarity = sum(clarity_scores) / len(clarity_scores) if clarity_scores else 0.0
+    avg_precision = sum(precision_scores) / len(precision_scores) if precision_scores else 0.0
 
-        return {
-            "helpfulness": round(avg_helpfulness, 4),
-            "correctness": round(avg_correctness, 4),
-            "f1_score": round(avg_f1, 4),
-            "clarity": round(avg_clarity, 4),
-            "precision": round(avg_precision, 4)
-        }
+    avg_helpfulness = (avg_clarity + avg_precision) / 2
+    avg_correctness = (avg_f1 + avg_precision) / 2
 
-    except Exception as e:
-        print(f"   ❌ Erro na avaliação: {e}")
-        return {
-            "helpfulness": 0.0,
-            "correctness": 0.0,
-            "f1_score": 0.0,
-            "clarity": 0.0,
-            "precision": 0.0
-        }
+    return {
+        "helpfulness": round(avg_helpfulness, 4),
+        "correctness": round(avg_correctness, 4),
+        "f1_score": round(avg_f1, 4),
+        "clarity": round(avg_clarity, 4),
+        "precision": round(avg_precision, 4)
+    }
 
 
 def display_results(prompt_name: str, scores: Dict[str, float]) -> bool:
