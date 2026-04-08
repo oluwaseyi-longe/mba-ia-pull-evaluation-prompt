@@ -36,16 +36,9 @@ bug_to_user_story_v2:
     {{descrição do bug enriquecido}} 
     
     Critérios de Aceitação 
-    - [ ] O sistema deve... 
-    - [ ] Não deve ocorrer... 
-    - [ ] Deve validar... 
-    
-    Prioridade
-    [] Alta / [] Média / [] Baixa 
-
-    Ambiente 
-    [] Produção / [] Homologação / [] Dev
-     
+    O sistema deve... 
+    Não deve ocorrer... 
+    Deve validar... 
 
     Abaixo está um exemplo de relato de bug e a user story correspondente tendo o prompt descrito abaixo como base:
     Exemplo 1:
@@ -74,12 +67,9 @@ bug_to_user_story_v2:
     Pagamento aprovado e pedido confirmado.
 
     Critérios de Aceitação
-    - [ ] Pagamento deve ser processado corretamente  
-    - [ ] Mensagens de erro devem ser claras  
-    - [ ] Pedido deve ser criado após pagamento aprovado  
-
-    Prioridade
-    [X] Alta / [] Média / [] Baixa 
+    Pagamento deve ser processado corretamente  
+    Mensagens de erro devem ser claras  
+    Pedido deve ser criado após pagamento aprovado  
 
     Abaixo está mais um exemplo de relato de bug e a user story correspondente tendo o prompt descrito abaixo como base:
 
@@ -115,14 +105,11 @@ bug_to_user_story_v2:
     Mensagem de erro não deve aparecer para dados corretos
     Sistema deve redirecionar para a área autenticada após login
 
-    Prioridade
-    [X] Alta / [] Média / [] Baixa
-
   user_prompt: "{bug_report}"
 
 
   # Metadados
   techniques_applied: ["Role Prompting", "Few-shot Learning", "Skeleton of Thought", "Chain of Thought"]
-  version: "v3"
+  version: "v4"
   created_at: "2026-04-06"
   tags: ["bug-analysis", "user-story", "product-management"]
