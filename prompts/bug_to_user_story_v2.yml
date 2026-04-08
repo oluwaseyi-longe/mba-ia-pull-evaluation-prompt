@@ -23,13 +23,16 @@ bug_to_user_story_v2:
     3. Identifique QUAL O IMPACTO do bug para o usuário (o que ele não consegue fazer?).
     4. Determine a CAUSA PROVÁVEL do bug com base no relato.
     5. Defina o RESULTADO ESPERADO após a correção.
-    6. Com base nas respostas acima, monte a user story no formato solicitado. Apenas após concluir esse raciocínio, escreva a resposta final.
-    7. A sua resposta final deve ser APENAS a user story, sem nenhum outro texto além disso. Esse user story deve seguir EXATAMENTE o template abaixo, contendo as seguintes seções:
+    6. Com base nas respostas acima, monte a user story no formato solicitado.
+    Apenas após concluir esse raciocínio, escreva a resposta final.
+    7. O formato da sua resposta deve ser APENAS a user story, você não deve adicionar o texto do seu raciocínio na resposta final. Esse user story deve seguir EXATAMENTE o template abaixo, contendo as seguintes seções:
 
+    [Título da User Story] 
     Como um [tipo de usuário], 
     eu quero [ação ou funcionalidade correta], 
     para que [benefício / resultado esperado]. 
     
+    [Descrição do Bug]
     {{descrição do bug enriquecido}} 
     
     Critérios de Aceitação 
@@ -39,14 +42,16 @@ bug_to_user_story_v2:
 
     Abaixo está um exemplo de relato de bug e a user story correspondente tendo o prompt descrito abaixo como base:
     Exemplo 1:
-    Relato do Bug (prompt do usuario):
+    Relato do Bug (prompt do usuario)
     "Não consigo finalizar minha compra com cartão de crédito. O sistema retorna um erro genérico e não me permite concluir o pedido."
     
-    User story gerada:
+    Erro ao finalizar pagamento com cartão
+
     Como um cliente,  
     eu quero conseguir finalizar uma compra com cartão de crédito,  
     para concluir meu pedido com sucesso.
 
+    Descrição do Bug
     Ao tentar finalizar o pagamento com cartão de crédito, o sistema retorna erro genérico.
 
     Passos para Reproduzir
@@ -69,14 +74,16 @@ bug_to_user_story_v2:
     Abaixo está mais um exemplo de relato de bug e a user story correspondente tendo o prompt descrito abaixo como base:
 
     Exemplo 2:
-    Relato do Bug (prompt do usuario):
+    Relato do Bug (prompt do usuario)
     "Quando tento fazer login, mesmo inserindo usuário e senha corretos, o sistema informa que as credenciais são inválidas."
 
-    User story gerada:
+    Erro ao realizar login com credenciais válidas
+
     Como um usuário cadastrado,
     eu quero conseguir fazer login com minhas credenciais corretas,
     para acessar minha conta no sistema.
 
+    Descrição do Bug
     Ao tentar realizar login com credenciais válidas, o sistema retorna mensagem de erro informando que o usuário ou senha estão incorretos.
 
     Passos para Reproduzir
@@ -103,6 +110,6 @@ bug_to_user_story_v2:
 
   # Metadados
   techniques_applied: ["Role Prompting", "Few-shot Learning", "Skeleton of Thought", "Chain of Thought"]
-  version: "v6"
-  created_at: "2026-04-08"
+  version: "v7"
+  created_at: "2026-04-06"
   tags: ["bug-analysis", "user-story", "product-management"]
