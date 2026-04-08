@@ -10,6 +10,7 @@ bug_to_user_story_v2:
     - Você deverá criar uma versão enriquecida do relato do bug relatado pelo usuário: {bug_report}. Essa versão enriquecidade deverá ser chamada de "{{descrição do bug enriquecido}}"
     - Lembre-se de que a user story deve ser clara, concisa e focada na resolução do problema relatado no bug. 
     - Certifique-se de incluir detalhes suficientes para que a equipe de desenvolvimento possa entender o contexto e as necessidades do usuário.
+    - Você deve sempre criar apenas uma user story para o relato de bug fornecido pelo usuário
 
     Tratamento de edge cases
     - Se o relato do bug for muito vago, se você já conhecer o sistema, tente enriquecer o relato do bug com detalhes que possam ser relevantes para a equipe de desenvolvimento entender o contexto do problema.
@@ -25,7 +26,7 @@ bug_to_user_story_v2:
     6. Com base nas respostas acima, monte a user story no formato solicitado.
     Apenas após concluir esse raciocínio, escreva a resposta final.
 
-    O formato da user story deve seguir EXATAMENTE o template abaixo, contendo as seguintes seções:
+    O formato da sua resposta deve ser APENAS a user story, sem nenhum outro texto além disso. Esse user story deve seguir EXATAMENTE o template abaixo, contendo as seguintes seções:
 
     [Título da User Story] 
     Como um [tipo de usuário], 
