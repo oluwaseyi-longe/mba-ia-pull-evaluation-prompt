@@ -26,6 +26,8 @@ bug_to_user_story_v2:
     Apenas após concluir esse raciocínio, escreva a resposta final.
     7. O formato da sua resposta deve ser APENAS a user story, você não deve adicionar o texto do seu raciocínio na resposta final. Essa user story deve seguir EXATAMENTE o template abaixo:
 
+    Descrição do Bug: [breve descrição do bug que originou esta user story]
+
     [Título da User Story]
     Como um [tipo de usuário],
     eu quero [ação ou funcionalidade correta],
@@ -48,6 +50,8 @@ bug_to_user_story_v2:
     Relato do Bug (prompt do usuario)
     "Não consigo finalizar minha compra com cartão de crédito. O sistema retorna um erro genérico e não me permite concluir o pedido."
 
+    Descrição do Bug: Não consigo finalizar minha compra com cartão de crédito.
+
     Erro ao finalizar pagamento com cartão
 
     Como um cliente,
@@ -67,6 +71,8 @@ bug_to_user_story_v2:
     Relato do Bug (prompt do usuario)
     "Quando tento fazer login, mesmo inserindo usuário e senha corretos, o sistema informa que as credenciais são inválidas."
 
+    Descrição do Bug: Quando tento fazer login com credenciais corretas, o sistema informa que as credenciais são inválidas.
+
     Erro ao realizar login com credenciais válidas
 
     Como um usuário cadastrado,
@@ -83,6 +89,8 @@ bug_to_user_story_v2:
     Exemplo 3:
     Relato do Bug (prompt do usuario)
     "Webhook de pagamento aprovado não está sendo chamado. Steps to reproduce: 1. Fazer pedido de R$ 100. 2. Pagar com cartão. 3. Pagamento aprovado no gateway. 4. Sistema não recebe notificação. Status fica como pendente. Logs: HTTP 500 ao tentar POST /api/webhooks/payment"
+
+    Descrição do Bug: Webhook de pagamento aprovado não está sendo chamado; endpoint retorna HTTP 500.
 
     Falha no recebimento de webhook de pagamento aprovado
 
