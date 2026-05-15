@@ -129,7 +129,7 @@ Severidade / Impacto / Problemas Identificados
 
 ### Links LangSmith
 
-- **Dashboard do projeto:** https://smith.langchain.com/projects/prompt-optimization-challenge-resolved
+- **Dashboard do projeto:** https://smith.langchain.com/o/c3f66322-148a-420c-b6ad-6e1031b53cb5/datasets/c5d85199-cd99-4124-a60b-3960d798952a
 - **Experimento final aprovado:** https://smith.langchain.com/o/c3f66322-148a-420c-b6ad-6e1031b53cb5/datasets/c5d85199-cd99-4124-a60b-3960d798952a/compare?selectedSessions=522f455e-af9c-4f37-b44a-963a49549eda
 - **Prompt publicado no Hub:** https://smith.langchain.com/prompts/bug_to_user_story_v2
 
